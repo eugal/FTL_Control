@@ -1,26 +1,7 @@
-/*
- * SN74HC165N_shift_reg
- *
- * Program to shift in the bit values from a SN74HC165N 8-bit
- * parallel-in/serial-out shift register.
- *
- * This sketch demonstrates reading in 16 digital states from a
- * pair of daisy-chained SN74HC165N shift registers while using
- * only 4 digital pins on the Arduino.
- *
- * You can daisy-chain these chips by connecting the serial-out
- * (Q7 pin) on one shift register to the serial-in (Ds pin) of
- * the other.
- * 
- * Of course you can daisy chain as many as you like while still
- * using only 4 Arduino pins (though you would have to process
- * them 4 at a time into separate unsigned long variables).
- * 
-*/
 
 /* How many shift register chips are daisy-chained.
 */
-#define NUMBER_OF_SHIFT_CHIPS   1
+#define NUMBER_OF_SHIFT_CHIPS   3
 
 /* Width of data (how many ext lines).
 */
@@ -105,14 +86,8 @@ void display_pin_values()
             Serial.print("LOW");
 
         Serial.print("\r\n");
-        
-    
     }
-
-    Serial.print("\r\n");
-    
-
-      
+    Serial.print("\r\n");      
 }
 
 void setup()
@@ -135,7 +110,6 @@ void setup()
     display_pin_values();
     oldPinValues = pinValues;
 }
-
 void loop()
 {
     /* Read the state of all zones.
@@ -148,8 +122,110 @@ void loop()
     {
         Serial.print("*Pin value change detected*\r\n");
         display_pin_values();
+        
+        // when pressed
+        if( (pinValues >> 0 & 1)){ 
+          //this!
+             Keyboard.press('s');
+             Keyboard.releaseAll(); 
+             delay(100);
+        }  
+        if( (pinValues >> 1 & 1)){ 
+          //this!
+          delay(100);
+           Keyboard.press('KEY_LEFT_SHIFT');
+           delay(100);
+           Keyboard.press('s');
+           Keyboard.releaseAll(); 
+           delay(100);
+        }  
+                if( (pinValues >> 2 & 1)){ 
+          //this!
+             Keyboard.press('a');
+             Keyboard.releaseAll(); 
+             delay(100);
+        }  
+          if( (pinValues >> 3 & 1)){ 
+          //this!
+          delay(100);
+             Keyboard.press('KEY_LEFT_SHIFT');
+             delay(100);
+             Keyboard.press('a');
+             Keyboard.releaseAll(); 
+             delay(100);
+        }  
+          if( (pinValues >> 4 & 1)){ 
+          //this!
+          delay(100);
+             Keyboard.press('KEY_LEFT_SHIFT');
+             delay(100);
+             Keyboard.press('d');
+             Keyboard.releaseAll(); 
+             delay(100);
+        }  
+          if( (pinValues >> 5 & 1)){ 
+          //this!
+             Keyboard.press('d');
+             Keyboard.releaseAll(); 
+             delay(100);
+        }
+        if( (pinValues >> 6 & 1)){
+          delay(100);
+          Keyboard.press('KEY_LEFT_SHIFT');
+          delay(100);
+          Keyboard.press('f');
+          Keyboard.releaseAll(); 
+          delay(100);
+        }
+                if( (pinValues >> 7 & 1)){
+          Keyboard.press('f');
+          Keyboard.releaseAll(); 
+          delay(100);
+        }
+          if( (pinValues >> 11 & 1)){
+          Keyboard.press('x');
+          Keyboard.releaseAll(); 
+          delay(100);
+          Keyboard.press('x');
+          Keyboard.releaseAll(); 
+          delay(100);
+          }
+                 if( (pinValues >> 12 & 1)){
+          Keyboard.press('1');
+          Keyboard.releaseAll(); 
+          delay(100);
+          }
+                     if( (pinValues >> 13 & 1)){
+          Keyboard.press('2');
+          Keyboard.releaseAll(); 
+          delay(100);
+          }
+                     if( (pinValues >> 14 & 1)){
+          Keyboard.press('3');
+          Keyboard.releaseAll(); 
+          delay(100);
+          }
+          
+          
+          if( (pinValues >> 15 & 1)){
+            Keyboard.press('j');
+            Keyboard.releaseAll(); 
+            delay(100);
+          }
+        
+          
+          
+        
+        // when released
+        /*if( (oldPinValues >> 0 & 1)){ 
+          //this!
+          Serial.println("yup");
+        }*/
+          
         oldPinValues = pinValues;
     }
-
     delay(POLL_DELAY_MSEC);
 }
+
+
+
